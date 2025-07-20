@@ -35,6 +35,30 @@ npm run reset-project
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
+### Troubleshooting `npm run reset-project`
+
+If you encounter a permission error like this when running `npm run reset-project`:
+
+```bash
+❌ Error during script execution: EPERM: operation not permitted, rename 'app' -> 'app-example\app'
+```
+
+**Cause:** This error occurs when the Expo development server is still running and has file locks on the `app` directory, preventing Windows from moving/renaming it.
+
+**Solution:**
+
+1. **Stop the Expo development server** by pressing `Ctrl+C` in any terminal where you ran `npx expo start`
+2. **Close Expo Go app** if it's still connected to your development server
+3. **Wait a few seconds** for all file locks to be released
+4. **Re-run the command**: `npm run reset-project`
+
+**Alternative Solution (if the above doesn't work):**
+
+- Kill any remaining Node.js processes: `taskkill /F /IM node.exe`
+- Then run `npm run reset-project` again
+
+> **💡 Tip:** Always stop your development server before running project reset or file manipulation commands to avoid permission conflicts.
+
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
